@@ -16,7 +16,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build CLI
-      run: cargo build -p primes-cli
-    - name: Build GUI
-      run: cargo build -p primes-gui
+    - name: Build
+      run: cargo build -p primes-cli -p primes-gui
+    - uses: actions/upload-artifact@v3
+      with:
+        name: primes-cli
+        path: target/release/primes-cli
+    - uses: actions/upload-artifact@v3
+      with:
+        name: primes-gui
+        path: target/release/primes-gui

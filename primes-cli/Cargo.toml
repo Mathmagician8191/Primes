@@ -1,0 +1,10 @@
+[package]
+name = "primes-cli"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+
+[dependencies]
+primes = {workspace = true}
+integer-sqrt = {workspace = true}
+itertools = {workspace = true}

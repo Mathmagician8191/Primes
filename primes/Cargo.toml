@@ -1,0 +1,13 @@
+[package]
+name = "primes"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+num = {workspace = true}
+integer-sqrt = {workspace = true}
+itertools = {workspace = true}
+
+[lib]
+name = "primes"
+path = "src/primes.rs"

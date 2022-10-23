@@ -6,18 +6,18 @@ use std::fmt::Display;
 pub fn is_prime<T: PrimInt>(input: T) -> bool {
   let one = T::one();
   if input == one {
-    return false
+    return false;
   }
   let two = one + one;
   if input == two {
-    return true
+    return true;
   }
   if input % two == T::zero() {
-    return false
+    return false;
   }
   let three = two + one;
   if input % three == T::zero() {
-    return false
+    return false;
   }
   let six = three + three;
   let limit = input.integer_sqrt();
@@ -27,10 +27,10 @@ pub fn is_prime<T: PrimInt>(input: T) -> bool {
       return true;
     }
     if input % i == T::zero() {
-      return false
+      return false;
     }
     if input % (i + two) == T::zero() {
-      return false
+      return false;
     }
     i = i + six;
   }
@@ -41,7 +41,7 @@ pub fn factorise<T: PrimInt>(mut input: T) -> Vec<T> {
   let one = T::one();
   let two = one + one;
   if input == T::zero() {
-    return factors
+    return factors;
   }
   while input % two == T::zero() {
     factors.push(two);
@@ -86,21 +86,18 @@ pub fn number_info<T: PrimInt + Display>(i: T) -> String {
   }
   if i == T::one() {
     return "1 is square, but with no prime factors".to_string();
-  }
-  else {
+  } else {
     let is_square;
     if i.integer_sqrt().pow(2) == i {
       is_square = format!("{} is square and", i);
-    }
-    else {
+    } else {
       is_square = i.to_string();
     }
     let factors: Vec<T> = factorise(i);
     if factors.len() == 1 {
       return format!("{} is prime", i);
-    }
-    else {
-      return format!("{} has factors {}", is_square, join(factors,", "));
+    } else {
+      return format!("{} has factors {}", is_square, join(factors, ", "));
     }
   }
 }

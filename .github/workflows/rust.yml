@@ -1,0 +1,28 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --release -p primes-cli -p primes-gui
+    - uses: actions/upload-artifact@v3
+      with:
+        name: primes-cli
+        path: target/release/primes-cli
+    - uses: actions/upload-artifact@v3
+      with:
+        name: primes-gui
+        path: target/release/primes-gui

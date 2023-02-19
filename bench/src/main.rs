@@ -1,21 +1,16 @@
 use num::PrimInt;
 use primes::is_prime;
-use std::any::type_name;
-use std::fmt::Display;
-use std::time::Duration;
-use std::time::Instant;
+use core::any::type_name;
+use core::fmt::Display;
+use std::time::{Duration, Instant};
 
 fn print_time<T: Display>(time: Duration, count: T) {
   let secs = time.as_secs();
   if secs >= 60 {
-    println!("Took {} s for {} primes", secs, count);
+    println!("Took {secs} s for {count} primes");
   } else {
     let millis = time.as_millis();
-    if millis >= 100 {
-      println!("Took {} ms for {} primes", millis, count);
-    } else {
-      println!("Took {} µs for {} primes", time.as_micros(), count);
-    }
+    println!("Took {millis} ms for {count} primes");
   }
 }
 
@@ -40,6 +35,6 @@ fn test<T: PrimInt + Display>(threshold: T) {
 fn main() {
   let threshold: u32 = 10_000_000;
   test(threshold);
-  test(threshold as u64);
-  test(threshold as u128);
+  test(u64::from(threshold));
+  test(u128::from(threshold));
 }

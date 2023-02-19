@@ -1,15 +1,16 @@
 use eframe::egui;
-use poll_promise::Promise;
 use primes::number_info;
-use std::time::Duration;
+use std::sync::mpsc::{channel, Receiver};
+use std::thread;
 use std::time::Instant;
+
 type PrimeInput = u128;
 
 struct PrimeGUI {
   input: String,
   ready: bool,
   message: Option<String>,
-  result: Option<Promise<String>>,
+  result: Option<Receiver<String>>,
   instant: Instant,
   frames: u32,
   seconds: u64,
@@ -40,28 +41,30 @@ impl eframe::App for PrimeGUI {
           Ok(i) => {
             self.message = Some("Calculating".to_string());
             self.ready = false;
-            self.result = Some(Promise::spawn_thread("factorise", move || number_info(i)));
+            let (tx, rx) = channel();
+            let ctx = ctx.clone();
+            thread::spawn(move || {
+              tx.send(number_info(i)).expect("Sending calculation failed");
+              ctx.request_repaint();
+            });
+            self.result = Some(rx);
           }
           Err(_) => {
             self.message = Some("You must enter a positive integer".to_string());
           }
         }
       }
-      if let Some(promise) = &self.result {
-        if let Some(message) = promise.ready() {
-          self.message = Some(message.to_string());
+      if let Some(receiver) = &self.result {
+        if let Ok(message) = receiver.try_recv() {
+          self.message = Some(message);
           self.ready = true;
           self.result = None;
         }
       }
-      match &self.message {
-        Some(string) => {
-          ui.heading(string);
-        }
-        None => {}
+      if let Some(string) = &self.message {
+        ui.heading(string);
       }
     });
-    ctx.request_repaint_after(Duration::from_millis(200));
     if cfg!(debug_assertions) {
       self.frames += 1;
       let duration = self.instant.elapsed().as_secs();
@@ -78,6 +81,6 @@ fn main() {
   eframe::run_native(
     "Prime Factoriser",
     eframe::NativeOptions::default(),
-    Box::new(|_cc| Box::new(PrimeGUI::default())),
-  )
+    Box::new(|_cc| Box::<PrimeGUI>::default()),
+  );
 }

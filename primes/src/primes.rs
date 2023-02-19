@@ -1,7 +1,7 @@
 use integer_sqrt::IntegerSquareRoot;
 use itertools::join;
 use num::PrimInt;
-use std::fmt::Display;
+use core::fmt::Display;
 
 pub fn is_prime<T: PrimInt>(input: T) -> bool {
   let one = T::one();
@@ -82,22 +82,20 @@ pub fn factorise<T: PrimInt>(mut input: T) -> Vec<T> {
 
 pub fn number_info<T: PrimInt + Display>(i: T) -> String {
   if i == T::zero() {
-    return "0 is square, but with no prime factors".to_string();
-  }
-  if i == T::one() {
-    return "1 is square, but with no prime factors".to_string();
+    "0 is square, but with no prime factors".to_string()
+  } else if i == T::one() {
+    "1 is square, but with no prime factors".to_string()
   } else {
-    let is_square;
-    if i.integer_sqrt().pow(2) == i {
-      is_square = format!("{} is square and", i);
+    let is_square = if i.integer_sqrt().pow(2) == i {
+      format!("{i} is square and")
     } else {
-      is_square = i.to_string();
-    }
+      i.to_string()
+    };
     let factors: Vec<T> = factorise(i);
     if factors.len() == 1 {
-      return format!("{} is prime", i);
+      format!("{i} is prime")
     } else {
-      return format!("{} has factors {}", is_square, join(factors, ", "));
+      format!("{} has factors {}", is_square, join(factors, ", "))
     }
   }
 }

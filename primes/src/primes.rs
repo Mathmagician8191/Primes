@@ -1,7 +1,7 @@
+use core::fmt::Display;
 use integer_sqrt::IntegerSquareRoot;
 use itertools::join;
 use num::PrimInt;
-use core::fmt::Display;
 
 pub fn is_prime<T: PrimInt>(input: T) -> bool {
   let one = T::one();

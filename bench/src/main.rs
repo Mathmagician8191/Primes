@@ -1,7 +1,7 @@
-use num::PrimInt;
-use primes::is_prime;
 use core::any::type_name;
 use core::fmt::Display;
+use num::PrimInt;
+use primes::is_prime;
 use std::time::{Duration, Instant};
 
 fn print_time<T: Display>(time: Duration, count: T) {

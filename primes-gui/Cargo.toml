@@ -8,7 +8,4 @@ edition.workspace = true
 
 [dependencies]
 primes = {workspace = true}
-integer-sqrt = {workspace = true}
-itertools = {workspace = true}
-poll-promise = {workspace = true}
 eframe = "*"

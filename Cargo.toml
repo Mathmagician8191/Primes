@@ -10,7 +10,6 @@ primes = {path = "primes"}
 integer-sqrt = "*"
 num = "*"
 itertools = "*"
-poll-promise = "*"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

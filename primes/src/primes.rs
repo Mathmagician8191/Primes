@@ -3,10 +3,10 @@
 
 extern crate alloc;
 
-use core::fmt::Display;
 use alloc::format;
 use alloc::string::{String, ToString};
 use alloc::vec::Vec;
+use core::fmt::Display;
 use integer_sqrt::IntegerSquareRoot;
 use itertools::join;
 use num::PrimInt;

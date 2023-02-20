@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 use primes::number_info;
 use std::io;
 

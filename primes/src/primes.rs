@@ -1,4 +1,12 @@
+#![no_std]
+#![forbid(unsafe_code)]
+
+extern crate alloc;
+
 use core::fmt::Display;
+use alloc::format;
+use alloc::string::{String, ToString};
+use alloc::vec::Vec;
 use integer_sqrt::IntegerSquareRoot;
 use itertools::join;
 use num::PrimInt;

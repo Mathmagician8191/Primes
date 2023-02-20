@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 use core::any::type_name;
 use core::fmt::Display;
 use num::PrimInt;

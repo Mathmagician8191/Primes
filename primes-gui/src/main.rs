@@ -1,3 +1,5 @@
+#![forbid(unsafe_code)]
+
 use eframe::egui;
 use primes::number_info;
 use std::sync::mpsc::{channel, Receiver};

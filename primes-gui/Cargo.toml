@@ -1,11 +1,12 @@
 [package]
 name = "primes-gui"
-version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+version = "0.1.1"
+description = "A GUI to check the prime factors of a number"
+repository.workspace = true
+license.workspace = true
 
 [dependencies]
 primes = {workspace = true}
-eframe = "*"
+eframe = "0.20.1"

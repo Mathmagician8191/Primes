@@ -1,8 +1,11 @@
 [package]
 name = "primes-cli"
-version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
+version.workspace = true
+description = "A CLI program to check the prime factors of a number"
+repository.workspace = true
+license.workspace = true
 
 [dependencies]
 primes = {workspace = true}

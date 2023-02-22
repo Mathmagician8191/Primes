@@ -1,8 +1,10 @@
+//! A benchmark for the prime checker
 #![forbid(unsafe_code)]
+#![warn(missing_docs)]
 
 use core::any::type_name;
 use core::fmt::Display;
-use num::PrimInt;
+use num_traits::{PrimInt, SaturatingMul};
 use primes::is_prime;
 use std::time::{Duration, Instant};
 
@@ -16,26 +18,28 @@ fn print_time<T: Display>(time: Duration, count: T) {
   }
 }
 
-fn test<T: PrimInt + Display>(threshold: T) {
+fn test<T: PrimInt + SaturatingMul + Display>(threshold: T) {
   println!("{} testing up to {}", type_name::<T>(), threshold);
   let now = Instant::now();
-  let mut count = T::zero();
-  let mut i = T::one();
-  loop {
-    if i > threshold {
-      break;
-    }
+  let one = T::one();
+  let two = one + one;
+  // include 2
+  let mut count = one;
+  // start at 3
+  let mut i = two + one;
+  while i <= threshold {
     if is_prime(i) {
-      count = count + T::one();
+      count = count + one;
     }
-    i = i + T::one();
+    // skip even numbers
+    i = i + two;
   }
   let elapsed_time = now.elapsed();
   print_time(elapsed_time, count);
 }
 
 fn main() {
-  let threshold: u32 = 10_000_000;
+  let threshold: u32 = 5_000_000;
   test(threshold);
   test(u64::from(threshold));
   test(u128::from(threshold));

@@ -4,12 +4,14 @@ members = ["primes-cli","bench","primes-gui"]
 [workspace.package]
 authors = ["Mathmagician8191 <50558333+Mathmagician8191@users.noreply.github.com>"]
 edition = "2021"
+version = "0.1.1"
+repository = "https://github.com/Mathmagician8191/Primes"
+license = "GPL-3.0"
 
 [workspace.dependencies]
 primes = {path = "primes"}
 integer-sqrt = "*"
-num = "*"
-itertools = "*"
+num-traits = {version = "0.2.15", default-features = false}
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

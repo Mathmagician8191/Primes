@@ -1,12 +1,15 @@
 [package]
 name = "primes"
-version = "0.1.0"
-edition = "2021"
+authors.workspace = true
+edition.workspace = true
+version.workspace = true
+description = "A library to check if numbers are prime and find their prime factors"
+repository.workspace = true
+license.workspace = true
 
 [dependencies]
-num = {workspace = true}
+num-traits = {workspace = true}
 integer-sqrt = {workspace = true}
-itertools = {workspace = true}
 
 [lib]
 name = "primes"

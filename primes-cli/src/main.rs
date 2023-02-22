@@ -1,9 +1,9 @@
+//! A command line interface to check the prime factors of a number
 #![forbid(unsafe_code)]
+#![warn(missing_docs)]
 
-use primes::number_info;
+use primes::{number_info, PrimeInput, ERROR};
 use std::io;
-
-type PrimeInput = u128;
 
 fn main() {
   println!("Check if a number is square, prime or composite");
@@ -20,9 +20,10 @@ fn main() {
     if size == 0 || trimmed.starts_with('q') {
       break;
     }
-    match trimmed.parse::<PrimeInput>() {
-      Ok(i) => println!("{}", number_info(i)),
-      Err(_) => println!("You must enter a positive integer"),
-    }
+    let result = match trimmed.parse::<PrimeInput>() {
+      Ok(i) => number_info(i),
+      Err(_) => ERROR.to_owned(),
+    };
+    println!("{result}");
   }
 }

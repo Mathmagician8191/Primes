@@ -1,9 +1,12 @@
 [package]
 name = "bench"
-version = "0.1.0"
 authors.workspace = true
 edition.workspace = true
+version.workspace = true
+description = "A benchmarking tool for the primes library"
+repository.workspace = true
+license.workspace = true
 
 [dependencies]
 primes = {workspace = true}
-num = {workspace = true}
+num-traits = {workspace = true}

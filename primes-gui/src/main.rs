@@ -1,12 +1,12 @@
+//! A GUI to check the prime factors of a number
 #![forbid(unsafe_code)]
+#![warn(missing_docs)]
 
-use eframe::egui;
-use primes::number_info;
+use eframe::{egui, App};
+use primes::{number_info, PrimeInput, ERROR};
 use std::sync::mpsc::{channel, Receiver};
 use std::thread;
 use std::time::Instant;
-
-type PrimeInput = u128;
 
 struct PrimeGUI {
   input: String,
@@ -32,7 +32,7 @@ impl Default for PrimeGUI {
   }
 }
 
-impl eframe::App for PrimeGUI {
+impl App for PrimeGUI {
   fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
     egui::CentralPanel::default().show(ctx, |ui| {
       ui.heading("Enter a number to factorise");
@@ -41,7 +41,7 @@ impl eframe::App for PrimeGUI {
         let trimmed = self.input.trim();
         match trimmed.parse::<PrimeInput>() {
           Ok(i) => {
-            self.message = Some("Calculating".to_string());
+            self.message = Some("Calculating".to_owned());
             self.ready = false;
             let (tx, rx) = channel();
             let ctx = ctx.clone();
@@ -52,18 +52,18 @@ impl eframe::App for PrimeGUI {
             self.result = Some(rx);
           }
           Err(_) => {
-            self.message = Some("You must enter a positive integer".to_string());
+            self.message = Some(ERROR.to_owned());
           }
         }
       }
-      if let Some(receiver) = &self.result {
+      if let Some(ref receiver) = self.result {
         if let Ok(message) = receiver.try_recv() {
           self.message = Some(message);
           self.ready = true;
           self.result = None;
         }
       }
-      if let Some(string) = &self.message {
+      if let Some(ref string) = self.message {
         ui.heading(string);
       }
     });
